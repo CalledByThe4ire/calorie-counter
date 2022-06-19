@@ -1,8 +1,8 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const paths = require('./paths')
+const paths = require('./paths');
 
 module.exports = {
   entry: [paths.src + '/index.js'],
@@ -26,7 +26,7 @@ module.exports = {
       ],
     }),
     new HtmlWebpackPlugin({
-      title: 'webpack Boilerplate',
+      title: 'Счётчик калорий',
       favicon: paths.src + '/images/favicon.png',
       template: paths.src + '/template.html',
       filename: 'index.html',
@@ -48,4 +48,4 @@ module.exports = {
       assets: paths.public,
     },
   },
-}
+};
