@@ -1,4 +1,31 @@
 import '@/styles/index.scss';
-import { example } from '@/js/example';
+import { render } from '@/js/utils/render';
+import Main from '@/js/components/main';
+import Container from '@/js/components/container';
+import CalorieCounter from '@/js/components/calorie-counter';
+import MainHeading from '@/js/components/main-heading';
+import CalorieCounterForm from '@/js/components/calorie-counter-form';
+import CalorieCounterFormParameters from '@/js/components/parameters';
+import CalorieCounterModel from '@/js/models/model.js';
+import CalorieCounterController from '@/js/controllers/calorie-counter';
 
-example();
+const rootElement = document.getElementById('root');
+const mainComponent = new Main();
+const containerComponent = new Container();
+const calorieCounterComponent = new CalorieCounter();
+const calorieCounterFormComponent = new CalorieCounterForm();
+const CalorieCounterFormParametersComponent = new CalorieCounterFormParameters();
+const mainHeadingComponent = new MainHeading();
+const calorieCounterModel = new CalorieCounterModel();
+const calorieCounterController = new CalorieCounterController(
+  calorieCounterFormComponent.getElement(),
+  calorieCounterModel
+);
+
+render(rootElement, mainComponent);
+render(mainComponent.getElement(), containerComponent);
+render(containerComponent.getElement(), calorieCounterComponent);
+render(calorieCounterComponent.getElement(), mainHeadingComponent);
+render(calorieCounterComponent.getElement(), calorieCounterFormComponent);
+render(calorieCounterFormComponent.getElement(), CalorieCounterFormParametersComponent);
+calorieCounterController.render();

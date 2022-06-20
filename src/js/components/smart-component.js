@@ -1,4 +1,4 @@
-import Component from './component.js';
+import Component from '@/js/components/component.js';
 
 export default class SmartComponent extends Component {
   recoveryListeners() {
@@ -8,7 +8,6 @@ export default class SmartComponent extends Component {
   rerender() {
     const oldElement = this.getElement();
     const parent = oldElement.parentElement;
-
     this.removeElement();
 
     const newElement = this.getElement();

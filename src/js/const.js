@@ -1,7 +1,20 @@
-export const ActivityCoefficient = {
+export const Gender = {
+  MALE: 'male',
+  FEMALE: 'female',
+};
+
+export const PhysicalActivity = {
+  MIN: 'min',
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+  MAX: 'max',
+};
+
+export const PhysicalActivityCoefficient = {
   MIN: 1.2,
   LOW: 1.375,
-  MIDDLE: 1.55,
+  MEDIUM: 1.55,
   HIGH: 1.725,
   MAX: 1.9,
 };
@@ -13,6 +26,6 @@ export const WeightMaintenanceParamsCoefficient = {
 };
 
 export const WeightMaintenanceSexCoefficient = {
-  MAN: 5,
-  WOMAN: 161,
+  MALE: 5,
+  FEMALE: 161,
 };
