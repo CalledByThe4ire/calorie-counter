@@ -1,8 +1,8 @@
-import { replace, render, RenderPosition } from '@/js/utils/render';
-import { isNumber } from '@/js/utils/common';
 import ParameterComponent from '@/js/components/parameter.js';
 import GenderComponent from '@/js/components/gender.js';
 import ActivityComponent from '@/js/components/activity.js';
+import { replace, render, RenderPosition } from '@/js/utils/render';
+import { isNumber } from '@/js/utils/common';
 import { defaultState } from '../models/model';
 
 const getComponentByRecord = (record) => {
@@ -43,8 +43,8 @@ export default class Record {
         }
       }
       const formElement = this._container.closest('form[name="counter"]');
-      const data = this.parseData(formElement);
-      this._onDataChange(evt.type, data);
+      const data = this._parseData(formElement);
+      this._onDataChange(data);
     });
 
     if (oldRecordComponent) {
@@ -58,7 +58,7 @@ export default class Record {
           render(
             container,
             this[`_${key}Component`],
-            RenderPosition.AFTERBEGIN
+            RenderPosition.PREPEND
           );
           break;
         case 'activity':
@@ -78,7 +78,10 @@ export default class Record {
       }
     }
   }
-  parseData(formElement) {
+  update(record) {
+    this._record = record;
+  }
+  _parseData(formElement) {
     const data = Object.fromEntries(new FormData(formElement));
     const mappedData = Object.keys(data).reduce((acc, key) => {
       const value = isNumber(acc[key]) ? acc[key] : parseInt(acc[key]);

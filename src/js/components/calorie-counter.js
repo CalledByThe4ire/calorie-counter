@@ -2,7 +2,7 @@ import Component from '@/js/components/component.js';
 
 const createCalorieCounterTemplate = () => {
   return (
-    `<article class="counter"></<article>`
+    `<article class="counter"></article>`
   );
 };
 

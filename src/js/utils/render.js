@@ -6,18 +6,28 @@ export const createElement = (template) => {
 };
 
 export const RenderPosition = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`,
+  APPEND: 'append',
+  PREPEND: 'prepend',
+  BEFORE: 'before',
+  AFTER: 'after',
 };
 
-export const render = (container, component, place = RenderPosition.BEFOREEND) => {
+export const render = (container, component, place = RenderPosition.APPEND) => {
   switch (place) {
-    case RenderPosition.AFTERBEGIN:
+    case RenderPosition.APPEND:
+      container.append(component.getElement());
+      break;
+
+    case RenderPosition.PREPEND:
       container.prepend(component.getElement());
       break;
 
-    case RenderPosition.BEFOREEND:
-      container.append(component.getElement());
+    case RenderPosition.BEFORE:
+      container.before(component.getElement());
+      break;
+
+    case RenderPosition.AFTER:
+      container.after(component.getElement());
       break;
   }
 };

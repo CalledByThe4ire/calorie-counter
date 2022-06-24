@@ -25,7 +25,7 @@ export const WeightMaintenanceParamsCoefficient = {
   AGE: 5,
 };
 
-export const WeightMaintenanceSexCoefficient = {
+export const WeightMaintenanceGenderCoefficient = {
   MALE: 5,
   FEMALE: 161,
 };

@@ -1,24 +1,24 @@
 import { getPercentage } from '@/js/utils/common';
 import {
   WeightMaintenanceParamsCoefficient,
-  WeightMaintenanceSexCoefficient,
+  WeightMaintenanceGenderCoefficient,
 } from '@/js/const';
 
 export const WeightManipulation = {
   MAINTENANCE: (params) => {
-    const { sex, weight, height, age, coefficient } = params;
+    const { gender, weight, height, age, coefficient } = params;
     const formula =
       WeightMaintenanceParamsCoefficient.WEIGHT * weight +
       WeightMaintenanceParamsCoefficient.HEIGHT * height -
       WeightMaintenanceParamsCoefficient.AGE * age;
 
-    switch (sex) {
-      case 'man':
-        return (formula + WeightMaintenanceSexCoefficient.MAN) * coefficient;
-      case 'woman':
-        return (formula - WeightMaintenanceSexCoefficient.WOMAN) * coefficient;
+    switch (gender) {
+      case 'male':
+        return (formula + WeightMaintenanceGenderCoefficient.MAN) * coefficient;
+      case 'female':
+        return (formula - WeightMaintenanceGenderCoefficient.WOMAN) * coefficient;
       default:
-        throw new Error(`Unknown sex: ${sex}`);
+        throw new Error(`Unknown gender: ${gender}`);
     }
   },
   LOSS: (params) => {
