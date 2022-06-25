@@ -1,22 +1,25 @@
 import Component from '@/js/components/component.js';
+import { WeightManipulation } from '@/js/const';
 
 const results = [
   {
-    type: 'maintenance',
+    type: WeightManipulation.MAINTENANCE,
     description: 'поддержание веса',
   },
   {
-    type: 'loss',
+    type: WeightManipulation.LOSS,
     description: 'снижение веса',
   },
   {
-    type: 'gain',
+    type: WeightManipulation.GAIN,
     description: 'набор веса',
   },
 ];
 
 const createHeadingMarkup = (heading) => {
-  return `<h2 class="heading">${heading}</h2>`;
+  return (
+    `<h2 class="heading">${heading}</h2>`
+  );
 };
 
 const createResultMarkup = (result) => {
@@ -25,7 +28,7 @@ const createResultMarkup = (result) => {
 
     return (
       `<h3>
-        <span data-goal="${type}">${result[type].toLocaleString()}</span> ккал
+        <span>${Math.trunc(result[type]).toLocaleString('ru-RU')}</span> ккал
       </h3>
       <p>${description}</p>`
     );
@@ -37,7 +40,9 @@ const createResultMarkup = (result) => {
         .map((item) => {
           const resultItem = createResultsItemMarkup(item);
 
-          return `<li class="counter__result-item">${resultItem}</li>`;
+          return (
+            `<li class="counter__result-item">${resultItem}</li>`
+          );
         })
         .join('\n')}
     </ul>`
@@ -46,10 +51,10 @@ const createResultMarkup = (result) => {
 
 const createResultTemplate = (result) => {
   return (
-    `<section class="counter__result counter__result--hidden">
+    `<section class="counter__result">
       ${createHeadingMarkup('Ваша норма калорий')}
       ${createResultMarkup(result)}
-  </section>;`
+    </section>;`
   );
 };
 
@@ -60,11 +65,5 @@ export default class Result extends Component {
   }
   getTemplate() {
     return createResultTemplate(this._result);
-  }
-  show() {
-    this.getElement().classList.remove('counter__result--hidden');
-  }
-  hide() {
-    this.getElement().classList.add('counter__result--hidden');
   }
 }

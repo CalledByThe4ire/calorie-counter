@@ -50,7 +50,9 @@ const createSwitcherMarkup = (gender) => {
             gender
           );
 
-          return `<li class="switcher__item">${switcherItem}</li>`;
+          return (
+            `<li class="switcher__item">${switcherItem}</li>`
+          );
         })
         .join('\n')}
     </ul>`

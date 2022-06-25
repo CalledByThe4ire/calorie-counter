@@ -29,3 +29,9 @@ export const WeightMaintenanceGenderCoefficient = {
   MALE: 5,
   FEMALE: 161,
 };
+
+export const WeightManipulation = {
+  MAINTENANCE: 'maintenance',
+  LOSS: 'loss',
+  GAIN: 'gain',
+};

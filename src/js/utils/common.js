@@ -5,15 +5,18 @@ import isObject from 'lodash/isObject';
 
 export const getDiff = (origObj, newObj) => {
   const changes = (newObj, origObj) => {
-    let arrayIndexCounter = 0
+    let arrayIndexCounter = 0;
     return transform(newObj, (result, value, key) => {
       if (!isEqual(value, origObj[key])) {
-        let resultKey = isArray(origObj) ? arrayIndexCounter++ : key
-        result[resultKey] = (isObject(value) && isObject(origObj[key])) ? changes(value, origObj[key]) : value
+        let resultKey = isArray(origObj) ? arrayIndexCounter++ : key;
+        result[resultKey] =
+          isObject(value) && isObject(origObj[key])
+            ? changes(value, origObj[key])
+            : value;
       }
-    })
+    });
   };
-  return changes(newObj, origObj)
+  return changes(newObj, origObj);
 };
 
 export const isNumber = (value) => Number.isNaN(value * 1);

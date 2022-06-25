@@ -30,9 +30,11 @@ const activities = [
 ];
 
 const createHeadingMarkup = (heading) => {
-  return `<legend class="heading">
+  return (
+    `<legend class="heading">
       ${heading}
-    </legend>`;
+    </legend>`
+  );
 };
 
 const createActivityMarkup = (activity) => {
@@ -52,7 +54,6 @@ const createActivityMarkup = (activity) => {
         <label for="activity-${type}">
           ${label}
         </label>
-        </div>
         <p class="radio__description">
           ${description}
         </p>
@@ -76,8 +77,8 @@ const createActivityMarkup = (activity) => {
 const createActivityTemplate = (activity) => {
   return (
     `<div class="form__item form__activity data-section="activity">
-        ${createHeadingMarkup('Физическая активность')}
-        ${createActivityMarkup(activity)}
+      ${createHeadingMarkup('Физическая активность')}
+      ${createActivityMarkup(activity)}
     </div>`
   );
 };
@@ -87,7 +88,7 @@ export default class Activity extends SmartComponent {
     const [value] = Object.values(record);
 
     super();
-    this.activity = value;
+    this._activity = value;
     this._changeHandler = null;
   }
   setChangeHandler(handler) {
@@ -98,6 +99,6 @@ export default class Activity extends SmartComponent {
     this.setChangeHandler(this._changeHandler);
   }
   getTemplate() {
-    return createActivityTemplate(this.activity);
+    return createActivityTemplate(this._activity);
   }
 }

@@ -55,11 +55,7 @@ export default class Record {
       switch (key) {
         case 'gender':
           container = this._container;
-          render(
-            container,
-            this[`_${key}Component`],
-            RenderPosition.PREPEND
-          );
+          render(container, this[`_${key}Component`], RenderPosition.PREPEND);
           break;
         case 'activity':
           container = this._container;
@@ -78,7 +74,7 @@ export default class Record {
       }
     }
   }
-  update(record) {
+  _update(record) {
     this._record = record;
   }
   _parseData(formElement) {

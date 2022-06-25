@@ -76,10 +76,6 @@ npm run build
   - - [`prettier`](https://github.com/prettier/prettier) - Dependency for `prettier-webpack-plugin` plugin
 - [`eslint-import-resolver-webpack`](https://github.com/benmosher/eslint-plugin-import/tree/master/resolvers/webpack) - Throw exceptions for import/export in webpack
 
-## Author
-
-- [Tania Rascia](https://www.taniarascia.com)
-
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).

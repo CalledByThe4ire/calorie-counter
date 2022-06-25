@@ -1,9 +1,11 @@
 import Component from '@/js/components/component.js';
 
 const createHeadingMarkup = (heading) => {
-  return `<legend class="visually-hidden">
-          ${heading}
-      </legend>`;
+  return (
+    `<legend class="visually-hidden">
+      ${heading}
+    </legend>`
+  );
 };
 
 const createParametersTemplate = () => {

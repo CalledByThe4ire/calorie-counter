@@ -1,11 +1,11 @@
 import { Gender, PhysicalActivity } from '@/js/const';
 
 export const defaultState = {
-    gender: Gender.MALE,
-    age: 0,
-    height: 0,
-    weight: 0,
-    activity: PhysicalActivity.MIN,
+  gender: Gender.MALE,
+  age: 0,
+  height: 0,
+  weight: 0,
+  activity: PhysicalActivity.MIN,
 };
 
 export default class Model {
@@ -81,6 +81,12 @@ export default class Model {
   setCounter(counter) {
     this._counter = {
       ...counter,
+    };
+  }
+
+  resetCounter() {
+    this._counter = {
+      ...defaultState,
     };
   }
 }

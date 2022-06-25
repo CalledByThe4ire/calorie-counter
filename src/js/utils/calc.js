@@ -2,10 +2,11 @@ import { getPercentage } from '@/js/utils/common';
 import {
   WeightMaintenanceParamsCoefficient,
   WeightMaintenanceGenderCoefficient,
+  WeightManipulation,
 } from '@/js/const';
 
-export const WeightManipulation = {
-  MAINTENANCE: (params) => {
+const WeightManipulationCalculation = {
+  [WeightManipulation.MAINTENANCE]: (params) => {
     const { gender, weight, height, age, coefficient } = params;
     const formula =
       WeightMaintenanceParamsCoefficient.WEIGHT * weight +
@@ -14,23 +15,43 @@ export const WeightManipulation = {
 
     switch (gender) {
       case 'male':
-        return (formula + WeightMaintenanceGenderCoefficient.MAN) * coefficient;
+        return (
+          (formula + WeightMaintenanceGenderCoefficient.MALE) * coefficient
+        );
       case 'female':
-        return (formula - WeightMaintenanceGenderCoefficient.WOMAN) * coefficient;
+        return (
+          (formula - WeightMaintenanceGenderCoefficient.FEMALE) * coefficient
+        );
       default:
         throw new Error(`Unknown gender: ${gender}`);
     }
   },
-  LOSS: (params) => {
-    const weightMaintenance = this.MAINTENANCE(params);
+  [WeightManipulation.LOSS]: (params) => {
+    const weightMaintenance =
+      WeightManipulationCalculation[WeightManipulation.MAINTENANCE](params);
     const percentage = getPercentage(15, weightMaintenance);
 
     return weightMaintenance - percentage;
   },
-  GAIN: (params) => {
-    const weightMaintenance = this.MAINTENANCE(params);
+  [WeightManipulation.GAIN]: (params) => {
+    console.log(WeightManipulationCalculation[WeightManipulation.MAINTENANCE]);
+    const weightMaintenance =
+      WeightManipulationCalculation[WeightManipulation.MAINTENANCE](params);
     const percentage = getPercentage(15, weightMaintenance);
 
     return weightMaintenance + percentage;
   },
+};
+
+export const calcWeightManipulations = (params) => {
+  return Object.keys(WeightManipulationCalculation).reduce(
+    (acc, weightManipulationName) => {
+      return {
+        ...acc,
+        [weightManipulationName]:
+          WeightManipulationCalculation[weightManipulationName](params),
+      };
+    },
+    {}
+  );
 };
