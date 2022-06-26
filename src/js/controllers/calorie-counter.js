@@ -1,6 +1,9 @@
 import upperFirst from 'lodash/upperFirst';
 import isEmpty from 'lodash/isEmpty';
+import pick from 'lodash/pick';
+import findIndex from 'lodash/findIndex';
 import { getDiff } from '@/js/utils/common';
+import { WeightMaintenance } from '@/js/const';
 import RecordController from '@/js/controllers/record';
 import SubmitController from '@/js/controllers/submit';
 
@@ -11,6 +14,30 @@ export default class CalorieCounter {
     this._parametricControllers = null;
     this._submitController = null;
     this._onDataChange = this._onDataChange.bind(this);
+  }
+  _focus(recordKey) {
+    const weightMaintenanceKeys = Object.keys(
+      pick(this._parametricControllers, Object.values(WeightMaintenance))
+    ).reverse();
+
+    if (weightMaintenanceKeys.includes(recordKey)) {
+      const index =
+        weightMaintenanceKeys.findIndex((key) => key === recordKey) + 1;
+
+      if (index === weightMaintenanceKeys.length) {
+        this._submitController._submitComponent
+          .getElement()
+          .querySelector('button')
+          .focus();
+      } else {
+        this._parametricControllers[weightMaintenanceKeys[index]][
+          `_${weightMaintenanceKeys[index]}Component`
+        ]
+          .getElement()
+          .querySelector('input')
+          .focus();
+      }
+    }
   }
   render() {
     const counter = this._model.getCounter();
@@ -34,7 +61,8 @@ export default class CalorieCounter {
     const data = this._model.getCounter();
     Object.entries(data).forEach((entry) => {
       const [key, value] = entry;
-      this._updateParametricController({ [key]: value });
+      const record = { [key]: value };
+      this._updateParametricController(record);
     });
     this._submitController._update(this._model);
   }
@@ -77,8 +105,10 @@ export default class CalorieCounter {
       const diff = getDiff(oldData, newData);
 
       if (!isEmpty(diff)) {
+        const [diffKey] = Object.keys(diff);
         render(diff);
         this._update();
+        this._focus(diffKey);
       }
     } else {
       this._update();

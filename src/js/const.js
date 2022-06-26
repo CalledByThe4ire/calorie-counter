@@ -3,6 +3,12 @@ export const Gender = {
   FEMALE: 'female',
 };
 
+export const WeightMaintenance = {
+  WEIGHT: 'weight',
+  HEIGHT: 'height',
+  AGE: 'age',
+};
+
 export const PhysicalActivity = {
   MIN: 'min',
   LOW: 'low',

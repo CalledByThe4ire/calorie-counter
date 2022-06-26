@@ -34,7 +34,6 @@ const WeightManipulationCalculation = {
     return weightMaintenance - percentage;
   },
   [WeightManipulation.GAIN]: (params) => {
-    console.log(WeightManipulationCalculation[WeightManipulation.MAINTENANCE]);
     const weightMaintenance =
       WeightManipulationCalculation[WeightManipulation.MAINTENANCE](params);
     const percentage = getPercentage(15, weightMaintenance);
