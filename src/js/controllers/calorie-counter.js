@@ -3,7 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import pick from 'lodash/pick';
 import findIndex from 'lodash/findIndex';
 import { getDiff } from '@/js/utils/common';
+import { render } from '@/js/utils/render';
 import { WeightMaintenance } from '@/js/const';
+import CalorieCounterFormParametersComponent from '@/js/components/parameters';
 import RecordController from '@/js/controllers/record';
 import SubmitController from '@/js/controllers/submit';
 
@@ -20,9 +22,9 @@ export default class CalorieCounter {
       pick(this._parametricControllers, Object.values(WeightMaintenance))
     ).reverse();
 
-    if (weightMaintenanceKeys.includes(recordKey)) {
+    if (recordKey && weightMaintenanceKeys.includes(recordKey)) {
       const index =
-        weightMaintenanceKeys.findIndex((key) => key === recordKey) + 1;
+        findIndex(weightMaintenanceKeys, (key) => key === recordKey) + 1;
 
       if (index === weightMaintenanceKeys.length) {
         this._submitController._submitComponent
@@ -37,11 +39,19 @@ export default class CalorieCounter {
           .querySelector('input')
           .focus();
       }
+    } else {
+      this._parametricControllers[WeightMaintenance.AGE][
+        `_${WeightMaintenance.AGE}Component`
+      ]
+        .getElement()
+        .querySelector('input')
+        .focus();
     }
   }
   render() {
     const counter = this._model.getCounter();
 
+    render(this._container, new CalorieCounterFormParametersComponent());
     this._parametricControllers = this._createParametricControllers(
       {},
       Object.entries(counter)
@@ -49,6 +59,7 @@ export default class CalorieCounter {
     Object.values(this._parametricControllers).forEach((controller) => {
       controller.render();
     });
+    this._focus();
 
     this._submitController = new SubmitController(
       this._container,
@@ -112,6 +123,7 @@ export default class CalorieCounter {
       }
     } else {
       this._update();
+      this._focus();
     }
   }
 }
